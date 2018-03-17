@@ -12,6 +12,32 @@ var path = require('path');
 var mm = require('musicmetadata');
 var _progress = require('cli-progress');
 var results = [];
+var os = require('os');
+var ifaces = os.networkInterfaces();
+
+var getIp () => {
+	Object.keys(ifaces).forEach(function (ifname) {
+		var alias = 0;
+
+		ifaces[ifname].forEach(function (iface) {
+			if ('IPv4' !== iface.family || iface.internal !== false) {
+				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+				return false;
+			}
+
+			if (alias >= 1) {
+				// this single interface has multiple ipv4 addresses
+				console.log(ifname + ':' + alias, iface.address);
+				return iface.address;
+			} else {
+				// this interface has only one ipv4 adress
+				console.log(ifname, iface.address);
+				return iface.address;
+			}
+			++alias;
+		});
+	});
+}
 var bar1 = new _progress.Bar({}, _progress.Presets.shades_classic);
 function ignoreFunc(file, stats) {
 	// `file` is the absolute path to the file, and `stats` is an `fs.Stats` 
@@ -197,7 +223,8 @@ io.on('connection', (socket) => {console.log('new User connected');
 );
 server.listen(3000, function () {
 			console.log(`App listening on port 3000! for laptop`)});
-var p = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || '192.168.43.62';
+var ip = getIp();
+var p = ip ? ip : process.env.IP;
 server2.listen(3003, p ,function () {
 	console.log(`App is listening! Open ${p}:3003`);
 });
