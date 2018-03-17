@@ -15,7 +15,7 @@ var results = [];
 var os = require('os');
 var ifaces = os.networkInterfaces();
 
-var getIp () => {
+var getIp = () => {
 	Object.keys(ifaces).forEach(function (ifname) {
 		var alias = 0;
 
@@ -78,7 +78,7 @@ var recur = (na, leng) => {
 	 });
 } 
 var file = [];
-readdir('/Users/Chintu/Music/', [ignoreFunc]).then(
+readdir(__dirname + '/music', [ignoreFunc]).then(
 	function (files) {
 		bar1.start(files.length,0);
 		for (i of files) {
