@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <body>
+        <ul>
+            <% var image = ''; %>
+    <% for(var i=0; i<names.length; i++) { %>
+        <li onclick =
+        "'<% image = names[i].picture[0]?names[i].picture[0].data:names[119].picture[0].data %>';playNew( '<%= names[i].path.split(`\\`).join(`/`) %>',
+        ' <%= names[i].title?names[i].title:names[i].path.split(`\\`).reverse()[0] %> ')">
+    <div class="row">
+        
+        <p class="col-lg-6"  > <%= names[i].title?names[i].title:names[i].path.split("\\").reverse()[0]   %> </p>
+        <!-- <div class="col-lg-6"><img src = "data:image/png;base64,<%= names[i].picture[0]?names[i].picture[0].data: '' %>" style="max-height:64px; max-width:64px"> -->
+    </div>
+    <hr>
+    </li>
+<% } %>
+</ul>
+<div style="z-index:10; position:fixed;bottom:0; background-color:rgb(255, 255, 255); width:100% " class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <img id= 'album' style="max-height:64px; max-width:64px">
+        <span class="navbar-text pull-left" id="name">
+        </span>
+        <i onclick="pause()" id='pause' class="fas fa-pause-circle"></i>
+        <i onclick="play()" style="display: none" id='play' class="far fa-play-circle"></i>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+<script src="/howler"></script>
+<script>
+    var sound;
+    var playNew = function(i, j, imageData) {
+        if (sound) {
+            sound.stop();
+        }
+        $('#name').html(j);
+        // $('#album').attr('src', 'data:image/png;base64,'+imageData);
+        sound = new Howl({
+                    src: ["http://localhost:3000/music?id="+i], html5: true
+                    , autoplay: true, volume: 1, format: 'mp3'
+                }); 
+         sound.play();
+    }
+    var pause = function () {
+        $('#pause').css('display', 'none');
+        $('#play').css('display', 'block');
+        console.log(sound.pause());
+    }
+    var play = function () {
+        $('#play').css('display', 'none');
+        $('#pause').css('display', 'block');
+        sound.play();
+    }
+</script>
+</body>

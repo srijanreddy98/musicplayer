@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+<% for(var i=0; i<names.length; i++) { %>
+    <div class="row">
+<a class="col-lg-6" href="http://192.168.43.62:3003/music?id=<%= names[i].path %>" target='_blank'>
+<%= names[i].title?names[i].title:names[i].path.split("\\").reverse()[0]   %>
+</a>
+<div class="col-lg-6">
+    <img src="data:image/png;base64,<%= names[i].picture[0]?names[i].picture[0].data: '' %>" style="max-height:64px; max-width:64px">
+</div>
+</div>
+    <hr>
+<% } %>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+</script>
