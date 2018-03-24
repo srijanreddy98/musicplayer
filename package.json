@@ -1,14 +1,14 @@
 {
   "name": "expressmusic",
   "version": "1.0.0",
-  "description": "Simple ExpressJS app to server music for listening and downloading",
+  "description": "Stream music from your PC to your phone",
   "main": "app.js",
   "scripts": {
     "test": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rishabhio/ExpressMusic.git"
+    "url": "git+https://github.com/srijanreddy98/musicplayer.git"
   },
   "keywords": [
     "expressjs",
@@ -18,12 +18,8 @@
     "in",
     "express"
   ],
-  "author": "@rishabhio",
+  "author": "@srijanreddy98",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rishabhio/ExpressMusic/issues"
-  },
-  "homepage": "https://github.com/rishabhio/ExpressMusic#readme",
   "dependencies": {
     "cli-progress": "^1.7.0",
     "ejs": "^2.5.7",
